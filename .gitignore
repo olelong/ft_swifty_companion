@@ -1,0 +1,39 @@
+# Fichiers générés par Flutter/Dart
+.dart_tool/
+.packages
+.pub/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.melos_tool/
+
+# Fichiers de plateforme
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/.symlinks/
+ios/Pods/
+ios/Runner.xcworkspace/
+macos/Pods/
+macos/Flutter/Flutter.podspec
+macos/.symlinks/
+macos/Flutter/ephemeral/
+
+# Android
+android/.gradle/
+android/app/build/
+android/local.properties
+
+# Web
+web/.dart_tool/
+
+# IDE
+.idea/
+*.iml
+*.ipr
+.vscode/
+
+# Autres
+*.log
+*.lock
+*.tmp
+
