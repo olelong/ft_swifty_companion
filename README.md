@@ -1,4 +1,4 @@
-# ftswiftycompanion
+# ft_swifty_companion
 
 A new Flutter project.
 

@@ -13,10 +13,6 @@ ios/Flutter/Flutter.podspec
 ios/.symlinks/
 ios/Pods/
 ios/Runner.xcworkspace/
-macos/Pods/
-macos/Flutter/Flutter.podspec
-macos/.symlinks/
-macos/Flutter/ephemeral/
 
 # Android
 android/.gradle/
