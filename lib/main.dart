@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'loginScreen.dart';
 
 Future main() async {
-  await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
 
@@ -17,9 +15,12 @@ class MyApp extends StatelessWidget {
       title: 'Ft Swifty Companion',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        scaffoldBackgroundColor: Colors.deepPurple[100],
       ),
-      // home: const MyHomePage(title: 'Ft Swifty Companion'),
-      home: const LoginScreen(),
+      home: Scaffold(
+        appBar: AppBar(title: const Text("Ft Swifty Companion")),
+        body: const LoginScreen(),
+      ),
     );
   }
 }

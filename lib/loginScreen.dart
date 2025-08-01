@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'dart:io'; // just for error of internet connection
+
 
 import 'userToken.dart';
 import 'appConfig.dart';
+import 'loginForm.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
-
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -17,62 +18,57 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    getAccessToken();
+    getAccessToken(context);
   }
 
-  // Future<void> getAccessToken() async {
-  //   final url = Uri.parse(apiUrl + "/oauth/token");
-  //   final response = await http.get(url);
-  //   if (response.statusCode == 200) {
-  //     final List<dynamic>data = convert.json.decode(response.body);
-  //     setState(() {
-  //       // data.map((data) => UserInformation.fromJson(data)).toList();
-  //       final List<UserInformation> user = data.map((e) => UserInformation.fromJson(e)).toList();
-  //
-  //     });
-  //     print(data);
-  //   }
-  //   else
-  //     print("Failed to get access");
-  // }
-
-  Future<void> getAccessToken() async {
+  Future<void> getAccessToken(BuildContext context) async { // BuildContext just to show to the user's screen, if an error occurred in the request
     final url = Uri.parse(AppConfig.apiUrl + "/oauth/token");
-    final response = await http.post(
-      url,
-      headers: {'Content-Type': 'application/json'},
-      body: convert.json.encode({
-        'client_id': AppConfig.clientId,
-        'client_secret': AppConfig.clientSecret,
-        'grant_type': 'client_credentials',
-      })
-    );
-    if (response.statusCode == 200) {
-      print("Response Body: ${response.body}");
-      UserToken userToken = UserToken.fromJson(convert.json.decode(response.body));
+    try {
+      final response = await http.post(
+          url,
+          headers: {'Content-Type': 'application/json'},
+          body: convert.json.encode({
+            'client_id': AppConfig.clientId,
+            'client_secret': AppConfig.clientSecret,
+            'grant_type': 'client_credentials',
+          })
+      );
+      if (response.statusCode == 200) {
+        final data = convert.json.decode(response.body);
+        if (data != null && data['access_token'] != null) {
+          UserToken userToken = UserToken.fromJson(data);
+          print("Success to get token access");
+        } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text("Invalid response: missing token")),
+            );
+          }
+      }
+      else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("API error: ${response.statusCode}")),
+        );
+      }
     }
-    else {
-      print("Error: ${response.statusCode}");
-      print("Error Body: ${response.body}");
+    catch (e){
+      if (e is SocketException) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("No internet connection")),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Network error: $e")),
+        );
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    String apiUrl = dotenv.get('URL');
+    final TextEditingController _inputController = TextEditingController(); // To access the content of the input and delete it
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text('Login'),
-      ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('Insert a login'),
-            Text(AppConfig.apiUrl),
-          ],
-        ),
+          child: const LoginForm(),
       ),
     );
   }
