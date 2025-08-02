@@ -5,6 +5,7 @@ import 'dart:io'; // just for error of internet connection
 
 import 'appConfig.dart';
 import 'userToken.dart';
+import 'userInfoScreen.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -39,7 +40,6 @@ class _LoginFormState extends State<LoginForm> {
         setState(() {
           user = data['login'];
         });
-        print(data);
         return true;
       }
       else {
@@ -96,7 +96,7 @@ class _LoginFormState extends State<LoginForm> {
                   Navigator.push(context, MaterialPageRoute(
                       builder: (context) => Scaffold(
                         appBar: AppBar(title: Text('$login')),
-                        body: Center(child: Text('Welcome!')),
+                        body: Center(child: userInfoScreen(user: user!)),
                       )
                   ));
                 } else {
