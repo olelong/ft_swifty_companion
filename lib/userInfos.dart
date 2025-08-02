@@ -1,10 +1,11 @@
 class UserInfos {
   final String user;
+  // id for other requests
   final String username;
   final String email;
   final String picture;
-  final String wallet;
-  final String level;
+  final int wallet;
+  // final String level;
   // userSkills(level, percentage),
   // projects including fail ones
 
@@ -14,7 +15,7 @@ class UserInfos {
     required this.email,
     required this.picture,
     required this.wallet,
-    required this.level,
+    // required this.level,
 
 
   });
@@ -24,7 +25,7 @@ class UserInfos {
         user: json['login'],
         username: json['usual_full_name'],
         email: json['email'],
-        picture: json['image.link'],
+        picture: json['image']['link'],
         wallet: json['wallet'],
         // level: json['cursus_users -> id -> level'],
 

@@ -6,6 +6,7 @@ import 'dart:io'; // just for error of internet connection
 import 'appConfig.dart';
 import 'userToken.dart';
 import 'userInfoScreen.dart';
+import 'userInfos.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -21,8 +22,8 @@ class _LoginFormState extends State<LoginForm> {
   // a global key that uniquely identifies the Form widget and allows validation of the form
   final _loginController = TextEditingController();
   bool _isLoading = false;
-  String? user;
   int statusCode = 0;
+  UserInfos? userInfos;
 
   Future<bool> checkUser(String login) async {
     final token = await UserToken.getToken();
@@ -38,7 +39,7 @@ class _LoginFormState extends State<LoginForm> {
       if (response.statusCode == 200) {
         final dynamic data = json.decode(response.body);
         setState(() {
-          user = data['login'];
+          userInfos = UserInfos.fromJson(data);
         });
         return true;
       }
@@ -92,11 +93,11 @@ class _LoginFormState extends State<LoginForm> {
                 bool isValid = res == true;
 
                 setState(() => _isLoading = false);
-                if (isValid){
+                if (isValid && userInfos != null){
                   Navigator.push(context, MaterialPageRoute(
                       builder: (context) => Scaffold(
                         appBar: AppBar(title: Text('$login')),
-                        body: Center(child: userInfoScreen(user: user!)),
+                        body: userInfoScreen(userInfos: userInfos!),
                       )
                   ));
                 } else {
