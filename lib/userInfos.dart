@@ -5,9 +5,10 @@ class UserInfos {
   final String email;
   final String picture;
   final int wallet;
-  // final String level;
+  final double level;
   // userSkills(level, percentage),
   // projects including fail ones
+  // final String[finalMark: "", status: "", validated: "", name: ""] projects;
 
   UserInfos({
     required this.user,
@@ -15,7 +16,7 @@ class UserInfos {
     required this.email,
     required this.picture,
     required this.wallet,
-    // required this.level,
+    this.level,
 
 
   });
@@ -27,8 +28,9 @@ class UserInfos {
         email: json['email'],
         picture: json['image']['link'],
         wallet: json['wallet'],
-        // level: json['cursus_users -> id -> level'],
-
+        // level: json['cursus_users -> id qui correspond au cursus -> name : 42cursus genre moi c est 77465 au lieu de mon id 62987-> level'],
+        // skills: json['cursus_users -> id qui correspond au cursus -> name : 42cursus genre moi c est 77465 au lieu de mon id 62987-> skills'],
+        // projects: json['projects_users'] -> save : ['final mark'], ['status'], ['validated'], ['project']['name']
     );
     return userInfos;
   }
