@@ -31,23 +31,6 @@ class _LoginFormState extends State<LoginForm> {
     final _url = Uri.parse(
         AppConfig.apiUrl + "/v2/users/" + login + "?access_token=" + token);
 
-    double? getLevel(List<dynamic> cursus) {
-      if (cursus.isEmpty) return null;
-      if (cursus.length == 1) return cursus.first["level"];
-
-      var cadet = cursus.any((c) => c["grade"] == "Cadet")
-          ? cursus.firstWhere((c) => c["grade"] == "Cadet")
-          : null;
-      if (cadet != null) return cadet["level"];
-
-      var transcender = cursus.any((c) => c["grade"] == "Transcender")
-          ? cursus.firstWhere((c) => c["grade"] == "Transcender")
-          : null;
-      if (transcender != null) return transcender["level"];
-
-      return null;
-    }
-
     try {
       final response = await http.get(_url);
       setState(() {
@@ -55,10 +38,8 @@ class _LoginFormState extends State<LoginForm> {
       });
       if (response.statusCode == 200) {
         final dynamic data = json.decode(response.body);
-        final level = getLevel(data["cursus_users"]);
         setState(() {
           userInfos = UserInfos.fromJson(data);
-          print("level: ${level} ");
         });
         return true;
       }

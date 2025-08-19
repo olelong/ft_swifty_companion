@@ -33,7 +33,7 @@ class userInfoScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(10.0),
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.8,
-                    height: 280,
+                    height: 300,
                     child: Column (
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -61,6 +61,11 @@ class userInfoScreen extends StatelessWidget {
                             color: Color(0xFF68548E),
                           ),),
                         Text('${userInfos.wallet} ₳',
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Color(0xFF68548E),
+                          ),),
+                        Text('${userInfos.level}',
                           style: const TextStyle(
                             fontSize: 16,
                             color: Color(0xFF68548E),
