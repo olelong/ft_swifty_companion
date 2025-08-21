@@ -45,7 +45,7 @@ class UserInfos {
         wallet: json['wallet'],
         level: cursus?["level"],
         skills: cursus?["skills"],
-        // projects: json['projects_users'] -> save : ['final mark'], ['status'], ['validated'], ['project']['name']
+        // projects: json['projects_users'] -> save : ['final mark'], ['validated'], ['project']['name'] juste ceux fini meme failed
     );
     return userInfos;
   }
