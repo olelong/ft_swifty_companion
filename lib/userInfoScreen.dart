@@ -65,10 +65,11 @@ class userInfoScreen extends StatelessWidget {
                             fontSize: 16,
                             color: Color(0xFF68548E),
                           ),),
-                        Text('${userInfos.level}',
+                        Text('Level ${userInfos.level}',
                           style: const TextStyle(
                             fontSize: 16,
                             color: Color(0xFF68548E),
+                            fontWeight: FontWeight.bold,
                           ),),
                       ],
                     ),
