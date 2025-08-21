@@ -49,11 +49,22 @@ class _LoginFormState extends State<LoginForm> {
         return false;
       }
     } catch (e) {
-      if (e is SocketException) {
-        print("No internet connection");
-      } else
-          print('Error during the request: $e');
-      return false;
+        String errorMsg = e is SocketException
+            ? "No internet connection"
+            : "Error during the request: $e";
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(errorMsg),
+            duration: Duration(seconds: 6),
+            action: SnackBarAction(
+              label: 'Close',
+              onPressed: () {
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              },
+            ),),
+        );
+        return false;
     }
   }
 
@@ -111,7 +122,16 @@ class _LoginFormState extends State<LoginForm> {
                   else
                     errorMsg = "User does not exist";
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(errorMsg)),
+                    SnackBar(
+                        content: Text(errorMsg),
+                        duration: Duration(seconds: 6),
+                        action: SnackBarAction(
+                          label: 'Close',
+                          onPressed: () {
+                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                          },
+                        ),
+                    ),
                   );
                 }
               }

@@ -40,26 +40,49 @@ class _LoginScreenState extends State<LoginScreen> {
           print("Success to get token access");
         } else {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("Invalid response: missing token")),
+              SnackBar(
+                  content: Text("Invalid response: missing token"),
+                  duration: Duration(seconds: 6),
+                  action: SnackBarAction(
+                    label: 'Close',
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                    },
+                  ),
+                  ),
             );
           }
       }
       else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("API error: ${response.statusCode}")),
+          SnackBar(
+            content: Text("API error: ${response.statusCode}"),
+            duration: Duration(seconds: 6),
+            action: SnackBarAction(
+              label: 'Close',
+              onPressed: () {
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              },
+            ),),
         );
       }
     }
     catch (e){
-      if (e is SocketException) {
+      String errorMsg = e is SocketException
+          ? "No internet connection"
+          : "Network error: $e";
+
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("No internet connection")),
+          SnackBar(
+            content: Text(errorMsg),
+            duration: Duration(seconds: 6),
+            action: SnackBarAction(
+              label: 'Close',
+              onPressed: () {
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              },
+            ),),
         );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Network error: $e")),
-        );
-      }
     }
   }
 
