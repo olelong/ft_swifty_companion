@@ -1,15 +1,12 @@
 class UserInfos {
   final String user;
-  // id for other requests
   final String username;
   final String email;
   final String picture;
   final int wallet;
   final double? level;
   final skills;
-  // userSkills(level, percentage),
-  // projects including fail ones
-  // final String[finalMark: "", status: "", validated: "", name: ""] projects;
+  final projects;
 
   UserInfos({
     required this.user,
@@ -19,6 +16,7 @@ class UserInfos {
     required this.wallet,
     required this.level,
     required this.skills,
+    required this.projects,
   });
 
   static Map<String, dynamic>? _getCursus(List<dynamic> cursus) {
@@ -36,7 +34,7 @@ class UserInfos {
 
   factory UserInfos.fromJson(Map<String, dynamic> json) {
     final cursus = _getCursus(json['cursus_users']);
-
+    final cursusId = cursus?['cursus_id'];
     final userInfos = UserInfos(
         user: json['login'],
         username: json['usual_full_name'],
@@ -45,7 +43,9 @@ class UserInfos {
         wallet: json['wallet'],
         level: cursus?["level"],
         skills: cursus?["skills"],
-        // projects: json['projects_users'] -> save : ['final mark'], ['validated'], ['project']['name'] juste ceux fini meme failed
+        projects: (json['projects_users'] as List)
+        .where((p) => (p['cursus_ids'] as List).contains(cursusId) &&
+            p['status'] == 'finished').toList(), // To get only projects for the current cursus and finished ones
     );
     return userInfos;
   }

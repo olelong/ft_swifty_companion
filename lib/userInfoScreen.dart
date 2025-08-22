@@ -78,6 +78,72 @@ class userInfoScreen extends StatelessWidget {
                           ),
                         )
                     ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      margin: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
+                      child: Column(
+                        children: [
+                          Container(
+                            margin: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 20),
+                            child: Text(
+                              'PROJECTS',
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF68548E),
+                              ),),
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.5,
+                            child: Scrollbar(
+                              thumbVisibility: true,
+                              child: SingleChildScrollView(
+                                  scrollDirection: Axis.vertical,
+                                  child: DataTable(columns: const <DataColumn>[
+                                    DataColumn(
+                                      label: Expanded(
+                                        child: Text('Name', style: TextStyle(fontSize: 15, color: Color(0xFF68548E),)),
+                                      ),
+                                    ),
+                                    DataColumn(
+                                      label: Expanded(
+                                        child: Text('Mark', style: TextStyle(fontSize: 15, color: Color(0xFF68548E),)),
+                                      ),
+                                    ),
+                                    DataColumn(
+                                      label: Expanded(
+                                        child: Text('Validated', style: TextStyle(fontSize: 15, color: Color(0xFF68548E),)),
+                                      ),
+                                    ),
+                                  ],
+                                    rows: List.generate(userInfos.projects.length, (i) {
+                                      final project = userInfos.projects[i];
+                                      final validated = project['validated?'];
+                                      return DataRow(cells: [
+                                        DataCell(Text('${project['project']['name']}',
+                                          style: const TextStyle(
+                                            fontSize: 15,
+                                            color: Color(0xFF68548E),
+                                          ),)),
+                                        DataCell(Text('${project['final_mark']}',
+                                          style: const TextStyle(
+                                            fontSize: 15,
+                                            color: Color(0xFF68548E),
+                                          ),)),
+                                        DataCell(Text(validated == true ? '✅' : '❌',
+                                          style: const TextStyle(
+                                            fontSize: 15,
+                                            color: Color(0xFF68548E),
+                                          ),)),
+                                      ]);
+                                    }),
+                                  ),
+                              )
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     Column(
                         children: [
                           Text(
@@ -125,8 +191,9 @@ class userInfoScreen extends StatelessWidget {
                               );
                             }),
                           ),
+
                         ]
-                    )
+                    ),
                   ],
                 ),
               )
