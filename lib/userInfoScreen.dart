@@ -83,61 +83,69 @@ class userInfoScreen extends StatelessWidget {
                       margin: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
                       child: Column(
                         children: [
-                          Container(
-                            margin: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 20),
-                            child: Text(
+                          Text(
                               'PROJECTS',
                               style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xFF68548E),
-                              ),),
+                              ),
                           ),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.5,
+                            height: userInfos.projects.isEmpty || userInfos.projects == null ? 20 :
+                              userInfos.projects.length <= 5 ? MediaQuery.of(context).size.height * 0.2 : MediaQuery.of(context).size.height * 0.5,
                             child: Scrollbar(
                               thumbVisibility: true,
                               child: SingleChildScrollView(
-                                  scrollDirection: Axis.vertical,
-                                  child: DataTable(columns: const <DataColumn>[
-                                    DataColumn(
-                                      label: Expanded(
-                                        child: Text('Name', style: TextStyle(fontSize: 15, color: Color(0xFF68548E),)),
+                                scrollDirection: Axis.vertical,
+                                child: (userInfos.projects.isEmpty || userInfos.projects == null)
+                                    ? Center(
+                                    child: Text('No projects found',
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        color: Color(0xFF68548E),
                                       ),
                                     ),
-                                    DataColumn(
-                                      label: Expanded(
-                                        child: Text('Mark', style: TextStyle(fontSize: 15, color: Color(0xFF68548E),)),
+                                    ) :
+                                    DataTable(columns: const <DataColumn>[
+                                      DataColumn(
+                                        label: Expanded(
+                                          child: Text('Name', style: TextStyle(fontSize: 15, color: Color(0xFF68548E),)),
+                                        ),
                                       ),
-                                    ),
-                                    DataColumn(
-                                      label: Expanded(
-                                        child: Text('Validated', style: TextStyle(fontSize: 15, color: Color(0xFF68548E),)),
+                                      DataColumn(
+                                        label: Expanded(
+                                          child: Text('Mark', style: TextStyle(fontSize: 15, color: Color(0xFF68548E),)),
+                                        ),
                                       ),
+                                      DataColumn(
+                                        label: Expanded(
+                                          child: Text('Validated', style: TextStyle(fontSize: 15, color: Color(0xFF68548E),)),
+                                        ),
+                                      ),
+                                    ],
+                                      rows: List.generate(userInfos.projects?.length ?? 0, (i) {
+                                        final project = userInfos.projects[i] ?? {}; // if null create 0 line
+                                        final validated = project['validated?'];
+                                        return DataRow(cells: [
+                                          DataCell(Text('${project['project']?['name'] ?? 'Unknown'}',
+                                            style: const TextStyle(
+                                              fontSize: 15,
+                                              color: Color(0xFF68548E),
+                                            ),)),
+                                          DataCell(Text('${project['final_mark'] ?? '-'}',
+                                            style: const TextStyle(
+                                              fontSize: 15,
+                                              color: Color(0xFF68548E),
+                                            ),)),
+                                          DataCell(Text(validated == true ? '✅' : '❌',
+                                            style: const TextStyle(
+                                              fontSize: 15,
+                                              color: Color(0xFF68548E),
+                                            ),)),
+                                        ]);
+                                      }),
                                     ),
-                                  ],
-                                    rows: List.generate(userInfos.projects.length, (i) {
-                                      final project = userInfos.projects[i];
-                                      final validated = project['validated?'];
-                                      return DataRow(cells: [
-                                        DataCell(Text('${project['project']['name']}',
-                                          style: const TextStyle(
-                                            fontSize: 15,
-                                            color: Color(0xFF68548E),
-                                          ),)),
-                                        DataCell(Text('${project['final_mark']}',
-                                          style: const TextStyle(
-                                            fontSize: 15,
-                                            color: Color(0xFF68548E),
-                                          ),)),
-                                        DataCell(Text(validated == true ? '✅' : '❌',
-                                          style: const TextStyle(
-                                            fontSize: 15,
-                                            color: Color(0xFF68548E),
-                                          ),)),
-                                      ]);
-                                    }),
-                                  ),
                               )
                             ),
                           ),
@@ -153,12 +161,14 @@ class userInfoScreen extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               color: Color(0xFF68548E),
                             ),),
+                          (userInfos.skills == null || userInfos.skills.length == 0) ? Text('No skills found') :
                           Wrap(
                             spacing: 5,
                             runSpacing: 15,
-                            children: List.generate(userInfos.skills.length, (i) {
-                              final skill = userInfos.skills[i];
-                              final  percentage = 100 * skill['level'] / 20; // between 0 and 100
+                            children: List.generate(userInfos.skills?.length ?? 0, (i) {
+                              final skill = userInfos.skills[i] ?? {};
+                              final level = (skill['level'] as num?)?.toDouble() ?? 0.0; //
+                              final  percentage = (100 * skill['level'] / 20); // between 0 and 100
                               return  Container (
                                 width: MediaQuery.of(context).size.width * 0.82,
                                 child: Column(
@@ -166,7 +176,7 @@ class userInfoScreen extends StatelessWidget {
                                       Row(
                                           children: [
                                             Text(
-                                              '${skill['name']}: ${skill['level']} ',
+                                              '${skill['name'] ?? 'Unknown'}: ${level.toStringAsFixed(1)} ',
                                               style: const TextStyle(
                                                 fontSize: 15,
                                                 color: Color(0xFF68548E),
@@ -182,7 +192,7 @@ class userInfoScreen extends StatelessWidget {
                                           ]
                                       ),
                                       LinearProgressIndicator(
-                                        value: skill['level'] / 20.0, // between 0.0 and 1.0
+                                        value: level / 20.0, // between 0.0 and 1.0
                                         semanticsLabel: 'Linear progress indicator',
                                       ),
                                     ]

@@ -21,13 +21,22 @@ class UserInfos {
 
   static Map<String, dynamic>? _getCursus(List<dynamic> cursus) {
     if (cursus.isEmpty) return null;
-    if (cursus.length == 1) return cursus.first;
+    if (cursus.length == 1) return cursus.first; // For Pisciner
 
     return cursus.firstWhere(
           (c) => c["grade"] == "Cadet",
       orElse: () => cursus.firstWhere(
             (c) => c["grade"] == "Transcender",
-        orElse: () => null,
+        orElse: () => cursus.firstWhere(
+              (c) => c["grade"] == "Alumni" && c["cursus"]["name"] == "42cursus",
+          orElse: () => cursus.firstWhere(
+                (c) => c["grade"] == "Alumni" && c["cursus"]["name"] == "42",
+            orElse: () => cursus.firstWhere(
+                    (c) => c["cursus"]["name"] == "42.zip",
+                orElse: () => cursus.first,
+            ),
+          ),
+        ),
       ),
     );
   }
