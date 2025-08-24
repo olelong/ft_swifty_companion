@@ -72,26 +72,31 @@ class userInfoScreen extends StatelessWidget {
                           ),
                         )
                     ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      margin: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
-                      child: Column(
-                        children: [
-                          Text(
-                              'PROJECTS',
-                              style: Theme.of(context).textTheme.titleMedium),
-                          SizedBox(
-                            height: userInfos.projects.isEmpty || userInfos.projects == null ? 20 :
+                    Center (
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        margin: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
+                        alignment: Alignment.center,
+                        child: Column(
+                          children: [
+                            Text(
+                                'PROJECTS',
+                                style: Theme.of(context).textTheme.titleMedium),
+                            SizedBox(
+                              height: userInfos.projects.isEmpty || userInfos.projects == null ? 20 :
                               userInfos.projects.length <= 5 ? MediaQuery.of(context).size.height * 0.2 : MediaQuery.of(context).size.height * 0.5,
-                            child: Scrollbar(
-                                child: SingleChildScrollView(
-                                  scrollDirection: Axis.vertical,
-                                  child: (userInfos.projects.isEmpty || userInfos.projects == null)
-                                      ? Center(
+                              width: MediaQuery.of(context).size.width * 0.9,
+                              child: Scrollbar(
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.vertical,
+                                    child: (userInfos.projects.isEmpty || userInfos.projects == null)
+                                        ? Center(
                                       child: Text('No projects found',
-                                        style: Theme.of(context).textTheme.bodyMedium),
-                                      ) :
-                                      DataTable(columns: <DataColumn>[
+                                          style: Theme.of(context).textTheme.bodyMedium),
+                                    ) :
+                                    DataTable(
+                                      columnSpacing: 25,
+                                      columns: <DataColumn>[
                                         DataColumn(
                                           label: Expanded(
                                             child: Text('Name', style: Theme.of(context).textTheme.bodyMedium),
@@ -107,24 +112,25 @@ class userInfoScreen extends StatelessWidget {
                                             child: Text('Validated', style: Theme.of(context).textTheme.bodyMedium),
                                           ),
                                         ),
-                                      ],
-                                        rows: List.generate(userInfos.projects?.length ?? 0, (i) {
-                                          final project = userInfos.projects[i] ?? {}; // if null create 0 line
-                                          final validated = project['validated?'];
-                                          return DataRow(cells: [
-                                            DataCell(Text('${project['project']?['name'] ?? 'Unknown'}',
+                                    ],
+                                      rows: List.generate(userInfos.projects?.length ?? 0, (i) {
+                                        final project = userInfos.projects[i] ?? {}; // if null create 0 line
+                                        final validated = project['validated?'];
+                                        return DataRow(cells: [
+                                          DataCell(Text('${project['project']?['name'] ?? 'Unknown'}',
                                               style: Theme.of(context).textTheme.bodyMedium)),
-                                            DataCell(Text('${project['final_mark'] ?? '-'}',
+                                          DataCell(Text('${project['final_mark'] ?? '-'}',
                                               style: Theme.of(context).textTheme.bodyMedium)),
-                                            DataCell(Text(validated == true ? '✅' : '❌',
+                                          DataCell(Text(validated == true ? '✅' : '❌',
                                               style: Theme.of(context).textTheme.bodyMedium)),
-                                          ]);
-                                        }),
-                                      ),
-                                )
+                                        ]);
+                                      }),
+                                    ),
+                                  )
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     Column(

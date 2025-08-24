@@ -100,6 +100,49 @@ class _LoginFormState extends State<LoginForm> {
     }
   }
 
+  Future<void> _submit(BuildContext context) async {
+    if (_formKey.currentState!.validate()) {
+      setState(() => _isLoading = true);
+      String login = _loginController.text;
+
+      final res = await checkUser(login, context);
+      bool isValid = res == true;
+
+      setState(() => _isLoading = false);
+      if (isValid && userInfos != null){
+        Navigator.push(context, MaterialPageRoute(
+            builder: (context) => Scaffold(
+              appBar: AppBar(title: Text('$login')),
+              body: userInfoScreen(userInfos: userInfos!),
+            )
+        ));
+      } else {
+        late final errorMsg;
+        if (statusCode == "401" || statusCode == "403")
+          errorMsg = "($statusCode) Invalid or missing token.";
+        else if (statusCode >= 500 && statusCode< 600 )
+          errorMsg = "($statusCode) Server error";
+        else if (statusCode >= 500 && statusCode< 600 )
+          errorMsg = "($statusCode) Server error";
+        else
+          errorMsg = "User does not exist";
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(errorMsg),
+            duration: Duration(seconds: 6),
+            action: SnackBarAction(
+              label: 'Close',
+              onPressed: () {
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              },
+            ),
+          ),
+        );
+      }
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -114,6 +157,7 @@ class _LoginFormState extends State<LoginForm> {
             ),
             child: TextFormField(
               controller: _loginController,
+              textInputAction: TextInputAction.go,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Enter a login',
@@ -121,53 +165,16 @@ class _LoginFormState extends State<LoginForm> {
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Enter a login';
+                } else if (value == '/' || value == '\\') {
+                  return 'Login invalid (/ or \\)';
                 }
                 return null;
               },
+              onFieldSubmitted: (_) => _submit(context),
             ),
           ),
           FilledButton(
-            onPressed: _isLoading ? null : () async {
-              if (_formKey.currentState!.validate()) {
-                setState(() => _isLoading = true);
-                String login = _loginController.text;
-
-                final res = await checkUser(login, context);
-                bool isValid = res == true;
-
-                setState(() => _isLoading = false);
-                if (isValid && userInfos != null){
-                  Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => Scaffold(
-                        appBar: AppBar(title: Text('$login')),
-                        body: userInfoScreen(userInfos: userInfos!),
-                      )
-                  ));
-                } else {
-                  late final errorMsg;
-                  if (statusCode == "401" || statusCode == "403")
-                    errorMsg = "($statusCode) Invalid or missing token.";
-                  else if (statusCode >= 500 && statusCode< 600 )
-                    errorMsg = "($statusCode) Server error";
-                  else if (statusCode >= 500 && statusCode< 600 )
-                    errorMsg = "($statusCode) Server error";
-                  else
-                    errorMsg = "User does not exist";
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                        content: Text(errorMsg),
-                        duration: Duration(seconds: 6),
-                        action: SnackBarAction(
-                          label: 'Close',
-                          onPressed: () {
-                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                          },
-                        ),
-                    ),
-                  );
-                }
-              }
-            },
+            onPressed: _isLoading ? null : () => _submit(context),
             child: _isLoading
                 ? SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2))
                 : Text('Submit'),
