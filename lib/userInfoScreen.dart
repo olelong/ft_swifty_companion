@@ -57,34 +57,16 @@ class userInfoScreen extends StatelessWidget {
                                 ),
                                 Text(
                                   '${userInfos.user}',
-                                  style: const TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xFF68548E),
-                                  ),),
+                                  style: Theme.of(context).textTheme.titleLarge),
                                 Text(
                                   '${userInfos.username}',
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xFF68548E),
-                                  ),),
+                                  style: Theme.of(context).textTheme.titleMedium),
                                 Text('${userInfos.email}',
-                                  style: const TextStyle(
-                                    fontSize: 15,
-                                    color: Color(0xFF68548E),
-                                  ),),
+                                  style: Theme.of(context).textTheme.bodyMedium),
                                 Text('${userInfos.wallet} ₳',
-                                  style: const TextStyle(
-                                    fontSize: 15,
-                                    color: Color(0xFF68548E),
-                                  ),),
+                                  style: Theme.of(context).textTheme.bodyMedium),
                                 Text('Level ${userInfos.level}',
-                                  style: const TextStyle(
-                                    fontSize: 15,
-                                    color: Color(0xFF68548E),
-                                    fontWeight: FontWeight.bold,
-                                  ),),
+                                  style: Theme.of(context).textTheme.bodyLarge),
                               ],
                             ),
                           ),
@@ -97,12 +79,7 @@ class userInfoScreen extends StatelessWidget {
                         children: [
                           Text(
                               'PROJECTS',
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF68548E),
-                              ),
-                          ),
+                              style: Theme.of(context).textTheme.titleMedium),
                           SizedBox(
                             height: userInfos.projects.isEmpty || userInfos.projects == null ? 20 :
                               userInfos.projects.length <= 5 ? MediaQuery.of(context).size.height * 0.2 : MediaQuery.of(context).size.height * 0.5,
@@ -112,26 +89,22 @@ class userInfoScreen extends StatelessWidget {
                                   child: (userInfos.projects.isEmpty || userInfos.projects == null)
                                       ? Center(
                                       child: Text('No projects found',
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          color: Color(0xFF68548E),
-                                        ),
-                                      ),
+                                        style: Theme.of(context).textTheme.bodyMedium),
                                       ) :
-                                      DataTable(columns: const <DataColumn>[
+                                      DataTable(columns: <DataColumn>[
                                         DataColumn(
                                           label: Expanded(
-                                            child: Text('Name', style: TextStyle(fontSize: 15, color: Color(0xFF68548E),)),
+                                            child: Text('Name', style: Theme.of(context).textTheme.bodyMedium),
                                           ),
                                         ),
                                         DataColumn(
                                           label: Expanded(
-                                            child: Text('Mark', style: TextStyle(fontSize: 15, color: Color(0xFF68548E),)),
+                                            child: Text('Mark', style: Theme.of(context).textTheme.bodyMedium),
                                           ),
                                         ),
                                         DataColumn(
                                           label: Expanded(
-                                            child: Text('Validated', style: TextStyle(fontSize: 15, color: Color(0xFF68548E),)),
+                                            child: Text('Validated', style: Theme.of(context).textTheme.bodyMedium),
                                           ),
                                         ),
                                       ],
@@ -140,20 +113,11 @@ class userInfoScreen extends StatelessWidget {
                                           final validated = project['validated?'];
                                           return DataRow(cells: [
                                             DataCell(Text('${project['project']?['name'] ?? 'Unknown'}',
-                                              style: const TextStyle(
-                                                fontSize: 15,
-                                                color: Color(0xFF68548E),
-                                              ),)),
+                                              style: Theme.of(context).textTheme.bodyMedium)),
                                             DataCell(Text('${project['final_mark'] ?? '-'}',
-                                              style: const TextStyle(
-                                                fontSize: 15,
-                                                color: Color(0xFF68548E),
-                                              ),)),
+                                              style: Theme.of(context).textTheme.bodyMedium)),
                                             DataCell(Text(validated == true ? '✅' : '❌',
-                                              style: const TextStyle(
-                                                fontSize: 15,
-                                                color: Color(0xFF68548E),
-                                              ),)),
+                                              style: Theme.of(context).textTheme.bodyMedium)),
                                           ]);
                                         }),
                                       ),
@@ -167,11 +131,7 @@ class userInfoScreen extends StatelessWidget {
                         children: [
                           Text(
                             'SKILLS',
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF68548E),
-                            ),),
+                            style: Theme.of(context).textTheme.titleMedium),
                           (userInfos.skills == null || userInfos.skills.length == 0) ? Text('No skills found') :
                           Wrap(
                             spacing: 5,
@@ -188,18 +148,9 @@ class userInfoScreen extends StatelessWidget {
                                           children: [
                                             Text(
                                               '${skill['name'] ?? 'Unknown'}: ${level.toStringAsFixed(1)} ',
-                                              style: const TextStyle(
-                                                fontSize: 15,
-                                                color: Color(0xFF68548E),
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
+                                              style: Theme.of(context).textTheme.bodyMedium),
                                             Text('(${percentage.toStringAsFixed(1)}%)', // Just one number after the comma
-                                              style: const TextStyle(
-                                                fontSize: 15,
-                                                color: Color(0xFF68548E),
-                                              ),
-                                            ),
+                                              style: Theme.of(context).textTheme.bodyMedium),
                                           ]
                                       ),
                                       LinearProgressIndicator(
