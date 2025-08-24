@@ -44,6 +44,8 @@ class userInfoScreen extends StatelessWidget {
                                     child: Image.network(
                                       userInfos.picture,
                                       fit: BoxFit.cover,
+                                      width: 200, // Need to be a square : clipOval crop as circle and not oval
+                                      height: 200,
                                       errorBuilder: (context, error, stackTrace) { // in case of error 404 when getting the image for example
                                         return Image.asset(
                                           'assets/42-logo.png',
