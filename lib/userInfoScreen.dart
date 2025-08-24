@@ -40,7 +40,17 @@ class userInfoScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 CircleAvatar(
-                                  backgroundImage: NetworkImage(userInfos.picture),
+                                  child: ClipOval( // to crop the image in a circle
+                                    child: Image.network(
+                                      userInfos.picture,
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (context, error, stackTrace) { // in case of error 404 when getting the image for example
+                                        return Image.asset(
+                                          'assets/42-logo.png',
+                                        );
+                                      },
+                                    ),
+                                  ),
                                   radius: 80,
                                 ),
                                 Text(
@@ -95,58 +105,58 @@ class userInfoScreen extends StatelessWidget {
                             height: userInfos.projects.isEmpty || userInfos.projects == null ? 20 :
                               userInfos.projects.length <= 5 ? MediaQuery.of(context).size.height * 0.2 : MediaQuery.of(context).size.height * 0.5,
                             child: Scrollbar(
-                              thumbVisibility: true,
-                              child: SingleChildScrollView(
-                                scrollDirection: Axis.vertical,
-                                child: (userInfos.projects.isEmpty || userInfos.projects == null)
-                                    ? Center(
-                                    child: Text('No projects found',
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        color: Color(0xFF68548E),
-                                      ),
-                                    ),
-                                    ) :
-                                    DataTable(columns: const <DataColumn>[
-                                      DataColumn(
-                                        label: Expanded(
-                                          child: Text('Name', style: TextStyle(fontSize: 15, color: Color(0xFF68548E),)),
+                                thumbVisibility: true,
+                                child: SingleChildScrollView(
+                                  scrollDirection: Axis.vertical,
+                                  child: (userInfos.projects.isEmpty || userInfos.projects == null)
+                                      ? Center(
+                                      child: Text('No projects found',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          color: Color(0xFF68548E),
                                         ),
                                       ),
-                                      DataColumn(
-                                        label: Expanded(
-                                          child: Text('Mark', style: TextStyle(fontSize: 15, color: Color(0xFF68548E),)),
+                                      ) :
+                                      DataTable(columns: const <DataColumn>[
+                                        DataColumn(
+                                          label: Expanded(
+                                            child: Text('Name', style: TextStyle(fontSize: 15, color: Color(0xFF68548E),)),
+                                          ),
                                         ),
-                                      ),
-                                      DataColumn(
-                                        label: Expanded(
-                                          child: Text('Validated', style: TextStyle(fontSize: 15, color: Color(0xFF68548E),)),
+                                        DataColumn(
+                                          label: Expanded(
+                                            child: Text('Mark', style: TextStyle(fontSize: 15, color: Color(0xFF68548E),)),
+                                          ),
                                         ),
+                                        DataColumn(
+                                          label: Expanded(
+                                            child: Text('Validated', style: TextStyle(fontSize: 15, color: Color(0xFF68548E),)),
+                                          ),
+                                        ),
+                                      ],
+                                        rows: List.generate(userInfos.projects?.length ?? 0, (i) {
+                                          final project = userInfos.projects[i] ?? {}; // if null create 0 line
+                                          final validated = project['validated?'];
+                                          return DataRow(cells: [
+                                            DataCell(Text('${project['project']?['name'] ?? 'Unknown'}',
+                                              style: const TextStyle(
+                                                fontSize: 15,
+                                                color: Color(0xFF68548E),
+                                              ),)),
+                                            DataCell(Text('${project['final_mark'] ?? '-'}',
+                                              style: const TextStyle(
+                                                fontSize: 15,
+                                                color: Color(0xFF68548E),
+                                              ),)),
+                                            DataCell(Text(validated == true ? '✅' : '❌',
+                                              style: const TextStyle(
+                                                fontSize: 15,
+                                                color: Color(0xFF68548E),
+                                              ),)),
+                                          ]);
+                                        }),
                                       ),
-                                    ],
-                                      rows: List.generate(userInfos.projects?.length ?? 0, (i) {
-                                        final project = userInfos.projects[i] ?? {}; // if null create 0 line
-                                        final validated = project['validated?'];
-                                        return DataRow(cells: [
-                                          DataCell(Text('${project['project']?['name'] ?? 'Unknown'}',
-                                            style: const TextStyle(
-                                              fontSize: 15,
-                                              color: Color(0xFF68548E),
-                                            ),)),
-                                          DataCell(Text('${project['final_mark'] ?? '-'}',
-                                            style: const TextStyle(
-                                              fontSize: 15,
-                                              color: Color(0xFF68548E),
-                                            ),)),
-                                          DataCell(Text(validated == true ? '✅' : '❌',
-                                            style: const TextStyle(
-                                              fontSize: 15,
-                                              color: Color(0xFF68548E),
-                                            ),)),
-                                        ]);
-                                      }),
-                                    ),
-                              )
+                                )
                             ),
                           ),
                         ],
