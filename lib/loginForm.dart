@@ -25,14 +25,46 @@ class _LoginFormState extends State<LoginForm> {
   int statusCode = 0;
   UserInfos? userInfos;
 
-  Future<bool> checkUser(String login) async {
-    final token = await UserToken.getToken();
-    if (token == null) return false;
+  Future<bool> checkUser(String login, BuildContext context) async {
+    String? token = await UserToken.getToken();
+
+    // If token doesn't exist yet
+    if (token == null) {
+      await UserToken.getAccessToken(context);
+      token = await UserToken.getToken();
+      if (token == null) return false;
+    }
     final _url = Uri.parse(
         AppConfig.apiUrl + "/v2/users/" + login + "?access_token=" + token);
-
     try {
       final response = await http.get(_url);
+
+      // if the token expired (401 unauthorized request)
+      if (response.statusCode == 401) {
+        await UserToken.getAccessToken(context);
+        token = await UserToken.getToken();
+        if (token != null) {
+          final retryUrl = Uri.parse(AppConfig.apiUrl + "/v2/users/$login?access_token=$token");
+          final retryResponse = await http.get(retryUrl);
+          if (retryResponse.statusCode == 200) {
+            final data = json.decode(retryResponse.body);
+            setState(() {
+              userInfos = UserInfos.fromJson(data);
+              statusCode = retryResponse.statusCode;
+            });
+            return true;
+          }
+          else {
+            print("Error: ${response.statusCode}");
+            print("User doesn't exist");
+            return false;
+          }
+          return false;
+        }
+        return false;
+      }
+
+      // If response is 200
       setState(() {
         statusCode = response.statusCode;
       });
@@ -100,7 +132,7 @@ class _LoginFormState extends State<LoginForm> {
                 setState(() => _isLoading = true);
                 String login = _loginController.text;
 
-                final res = await checkUser(login);
+                final res = await checkUser(login, context);
                 bool isValid = res == true;
 
                 setState(() => _isLoading = false);

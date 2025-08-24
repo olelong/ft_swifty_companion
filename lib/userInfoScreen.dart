@@ -48,7 +48,7 @@ class userInfoScreen extends StatelessWidget {
                                       height: 200,
                                       errorBuilder: (context, error, stackTrace) { // in case of error 404 when getting the image for example
                                         return Image.asset(
-                                          'assets/42-logo.png',
+                                          'assets/default.jpg',
                                         );
                                       },
                                     ),
@@ -107,7 +107,6 @@ class userInfoScreen extends StatelessWidget {
                             height: userInfos.projects.isEmpty || userInfos.projects == null ? 20 :
                               userInfos.projects.length <= 5 ? MediaQuery.of(context).size.height * 0.2 : MediaQuery.of(context).size.height * 0.5,
                             child: Scrollbar(
-                                thumbVisibility: true,
                                 child: SingleChildScrollView(
                                   scrollDirection: Axis.vertical,
                                   child: (userInfos.projects.isEmpty || userInfos.projects == null)
