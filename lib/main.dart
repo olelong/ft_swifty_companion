@@ -36,6 +36,10 @@ class MyApp extends StatelessWidget {
             color: Color(0xFF68548E),
             fontWeight: FontWeight.bold,
           ),
+          bodySmall: const TextStyle(
+            fontSize: 13,
+            color: Color(0xFF68548E),
+          ),
         ),
       ),
       home: Scaffold(

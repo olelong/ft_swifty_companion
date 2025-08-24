@@ -132,7 +132,7 @@ class userInfoScreen extends StatelessWidget {
                           Text(
                             'SKILLS',
                             style: Theme.of(context).textTheme.titleMedium),
-                          (userInfos.skills == null || userInfos.skills.length == 0) ? Text('No skills found') :
+                          (userInfos.skills == null || userInfos.skills.length == 0) ? Text('No skill found') :
                           Wrap(
                             spacing: 5,
                             runSpacing: 15,
@@ -148,9 +148,9 @@ class userInfoScreen extends StatelessWidget {
                                           children: [
                                             Text(
                                               '${skill['name'] ?? 'Unknown'}: ${level.toStringAsFixed(1)} ',
-                                              style: Theme.of(context).textTheme.bodyMedium),
+                                              style: Theme.of(context).textTheme.bodySmall),
                                             Text('(${percentage.toStringAsFixed(1)}%)', // Just one number after the comma
-                                              style: Theme.of(context).textTheme.bodyMedium),
+                                              style: Theme.of(context).textTheme.bodySmall),
                                           ]
                                       ),
                                       LinearProgressIndicator(
