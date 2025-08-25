@@ -35,7 +35,7 @@ class userInfoScreen extends StatelessWidget {
                           padding: const EdgeInsets.all(10.0),
                           child: Container(
                             width: MediaQuery.of(context).size.width * 0.8,
-                            height: 300,
+                            constraints: BoxConstraints(minHeight: 300),
                             child: Column (
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
