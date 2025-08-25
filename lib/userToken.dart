@@ -34,7 +34,6 @@ class UserToken {
         final data = convert.json.decode(response.body);
         if (data != null && data['access_token'] != null) {
           UserToken.fromJson(data);
-          print("Success to get token access");
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -47,7 +46,7 @@ class UserToken {
       else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text("API error: ${response.statusCode}"),
+            content: Text("An API error occurred: ${response.statusCode}"),
             duration: Duration(seconds: 6),
           ),
         );

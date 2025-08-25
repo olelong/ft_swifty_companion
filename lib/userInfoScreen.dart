@@ -41,17 +41,18 @@ class userInfoScreen extends StatelessWidget {
                               children: [
                                 CircleAvatar(
                                   child: ClipOval( // to crop the image in a circle
-                                    child: Image.network(
-                                      userInfos.picture,
-                                      fit: BoxFit.cover,
-                                      width: 200, // Need to be a square : clipOval crop as circle and not oval
-                                      height: 200,
-                                      errorBuilder: (context, error, stackTrace) { // in case of error 404 when getting the image for example
-                                        return Image.asset(
-                                          'assets/default.jpg',
-                                        );
-                                      },
-                                    ),
+                                    child: userInfos.picture != null && userInfos.picture!.isNotEmpty
+                                        ? Image.network(
+                                          userInfos.picture!,
+                                          fit: BoxFit.cover,
+                                          width: 200, // Need to be a square : clipOval crop as circle and not oval
+                                          height: 200,
+                                          errorBuilder: (context, error, stackTrace) { // in case of error 404 when getting the image for example
+                                            return Image.asset(
+                                              'assets/default.jpg',
+                                            );
+                                          },)
+                                        : Image.asset('assets/default.jpg'),
                                   ),
                                   radius: 80,
                                 ),
@@ -91,7 +92,7 @@ class userInfoScreen extends StatelessWidget {
                                     scrollDirection: Axis.vertical,
                                     child: (userInfos.projects.isEmpty || userInfos.projects == null)
                                         ? Center(
-                                      child: Text('No projects found',
+                                      child: Text('No project found',
                                           style: Theme.of(context).textTheme.bodyMedium),
                                     ) :
                                     DataTable(

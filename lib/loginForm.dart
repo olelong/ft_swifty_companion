@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:io'; // just for error of internet connection
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'appConfig.dart';
 import 'userToken.dart';
@@ -54,11 +55,7 @@ class _LoginFormState extends State<LoginForm> {
             });
             return true;
           }
-          else {
-            print("Error: ${response.statusCode}");
-            print("User doesn't exist");
-            return false;
-          }
+          else return false;
           return false;
         }
         return false;
@@ -75,15 +72,11 @@ class _LoginFormState extends State<LoginForm> {
         });
         return true;
       }
-      else {
-        print("Error: ${response.statusCode}");
-        print("User doesn't exist");
-        return false;
-      }
+      else return false;
     } catch (e) {
         String errorMsg = e is SocketException
             ? "No internet connection"
-            : "Error during the request: $e";
+            : "Error: User doesn't exist";
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -117,7 +110,7 @@ class _LoginFormState extends State<LoginForm> {
             )
         ));
       } else {
-        late final errorMsg;
+        String errorMsg;
         if (statusCode == "401" || statusCode == "403")
           errorMsg = "($statusCode) Invalid or missing token.";
         else if (statusCode >= 500 && statusCode< 600 )
@@ -165,8 +158,10 @@ class _LoginFormState extends State<LoginForm> {
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Enter a login';
-                } else if (value == '/' || value == '\\') {
-                  return 'Login invalid (/ or \\)';
+                } else if (value.contains('/') || value.contains('\\')) {
+                  return 'Invalid Login (/ or \\)';
+                } else if (!RegExp(r'^[a-zA-Z0-9_-]{0,20}$').hasMatch(value) || value == "graph") {
+                  return 'Invalid login';
                 }
                 return null;
               },
