@@ -46,7 +46,9 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: Scaffold(
-        appBar: AppBar(title: const Text("Ft Swifty Companion")),
+        appBar: AppBar(
+            leading: Image.asset('assets/load.png'),
+            title: const Text("Ft Swifty Companion")),
         body: const LoginScreen(),
       ),
     );
