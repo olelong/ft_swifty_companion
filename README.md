@@ -1,21 +1,3 @@
-# ft_swifty_companion
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-
 <h1>
   <img src="assets/load.png" width="50px" /> Ft Swifty Companion
 </h1>
@@ -79,27 +61,18 @@ Other requirements:
    Y // Would you like to run the app on another port instead? › (Y/n)
    ```
 
-The frontend will be accessible at:
+The app will be accessible at:
 - **http://localhost:3001** (when run standalone)
 - **http://localhost:3000** (if served statically by the backend).
 
 ---
-<h2>
-  <img src="src/assets/fruitsTheme/myrtille.png" width="30px" />
-  Technologies Used
-</h2>
+<h2> Technologies Used </h2>
 
 ## Technologies Used
-- **Frontend**:
 <div align="left">
+  flutter, Android studio for emulation
   <img src="screenshots/react.png" width="200px" />
   <img src="screenshots/redux.png" width="200px" />
-</div>
-  
-- **Backend**: (no database or API involved)
-<div align="left">
-  <img src="screenshots/socketio.png" width="200px" />
-  <img src="screenshots/nest.png" width="200px" />
 </div>
 
 ---
