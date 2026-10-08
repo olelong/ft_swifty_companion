@@ -9,9 +9,9 @@ A solo project. This project is a mobile application that consumes the 42 API to
 ---
 <h2> Details </h2>
 
-**Examples of the First view (search):**
+**Example of the First view (search):**
 <div align="center">
- <img src="screenshots/fruitTheme.png" width="500px" />
+ <img src="screenshots/Home.png" width="400px" />
 </div>
 
 
@@ -20,9 +20,16 @@ A solo project. This project is a mobile application that consumes the 42 API to
 - the user's skills, with their level and percentage;
 - the projects the user has taken part in, including failed ones.
 Examples:
-<div align="center">
- <img src="screenshots/fruitTheme.png" width="500px" />
-</div>
+<table align="center">
+  <tr>
+    <td>
+      <img src="screenshots/Projects.png" width="400px" />
+    </td>
+    <td>
+      <img src="screenshots/Skills.png" width="400px" />
+    </td>
+  </tr>
+</table>
 
 Other requirements:
 - **Error handling:** The app must gracefully handle every failure case, such as an unknown login or a network error, and give the user clear feedback.
@@ -30,20 +37,25 @@ Other requirements:
 - **API usage:** The app must not generate a new authentication token for each request. The token should be obtained once and reused (and renewed only when needed).
 
 **Mise en situation test:**
-<div align="center">
-  <video src="https://github.com/user-attachments/assets/59d0837b-480f-42d5-874b-bac95c14e7ed" >
-    Your browser does not support videos but you can watch the T-Spin demo <a href="https://github.com/user-attachments/assets/59d0837b-480f-42d5-874b-bac95c14e7ed" >here</a>.
-  </video>
-</div>
+<table align="center">
+  <tr>
+    <td>
+      <video src="https://github.com/user-attachments/assets/2ed4865e-358a-47cc-8121-8ef353a000cf" width="400" controls> Your browser does not support videos but you can watch the demo part 1 <a href="https://github.com/user-attachments/assets/2ed4865e-358a-47cc-8121-8ef353a000cf" >here</a>
+      </video>
+    </td>
+    <td>
+      <video src="https://github.com/user-attachments/assets/3134a972-1e88-47ce-9f50-047ff1204c69" width="400" controls>
+        Your browser does not support videos but you can watch the demo part 2 <a href="https://github.com/user-attachments/assets/3134a972-1e88-47ce-9f50-047ff1204c69" >here</a>
+      </video>
+    </td>
+  </tr>
+</table>
 
 ---
 <h2> Prerequisites </h2>
 
 ---
-<h2>
-   <img src="src/assets/fruitsTheme/orange.png" width="30px" /> 
-  Setup Instructions
-</h2>
+<h2> Setup Instructions </h2>
 
 ### Step 1: Clone and Set Up the repository
 1. Clone this repository:
