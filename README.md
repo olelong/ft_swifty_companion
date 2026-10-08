@@ -82,9 +82,9 @@ The app will be accessible at:
 
 ## Technologies Used
  Framework Flutter to create an app usable on every platform, and Android studio for emulation.
-<div align="center">
-  <img src="Screenshots/FlutterLogo.png" width="200px" />
-  <img src="Screenshots/androidStudioLogo.png" width="200px" />
+<div align="left">
+  <img src="Screenshots/FlutterLogo.png" width="100px" />
+  <img src="Screenshots/androidStudioLogo.png" width="100px" />
 </div>
 
 ---
