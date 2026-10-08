@@ -66,7 +66,7 @@ Flutter, Android studio si besoin pour émuler.
    ```
 ### Step 2: Install Flutter (if not already installed)
 1. Download flutter zip:
-   https://docs.flutter.dev/get-started/install/linux/android
+   https://docs.flutter.dev/get-started/install/linux/android or https://docs.flutter.dev/install/manual
 2. Create a folder dedicated (this step line is only for 42 users):
    Create a folder dev in sgoinfre or goinfre.
    ```
