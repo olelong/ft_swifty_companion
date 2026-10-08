@@ -70,7 +70,7 @@ Flutter, Android studio si besoin pour émuler.
 2. Create a folder dedicated (this step line is only for 42 users):
    Create a folder dev in sgoinfre or goinfre.
    ```
-      mkdir dev
+      mkdir ~/goinfre/dev
    ```
 5. Extract the zip file:
    ```
