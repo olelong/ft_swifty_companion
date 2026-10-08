@@ -83,7 +83,65 @@ Flutter, Android studio si besoin pour émuler.
 (  Same command line for bash instead of zshrc but at the end: >>  ~/.bash_profile )
 8. Relaunch the terminal
 
-### Step 3: Launch
+### Step 3: Install Android Studio (or see Step 3b to use a physical device)
+
+1. Download the Linux archive (`.tar.gz`) from [developer.android.com/studio](https://developer.android.com/studio) and extract it:
+```bash
+   mkdir -p ~/goinfre/dev
+   tar xf ~/Downloads/android-studio-*-linux.tar.gz -C ~/goinfre/dev
+```
+2. Launch Android Studio and follow the setup wizard (choose **Standard**). This installs the Android SDK in `~/Android/Sdk`.
+```bash
+   ~/goinfre/dev/android-studio/bin/studio.sh
+```
+3. In **Settings → Languages & Frameworks → Android SDK → SDK Tools**, check **Android SDK Command-line Tools** and click **Apply**.
+4. Accept the Android licenses and check your setup:
+```bash
+   flutter doctor --android-licenses
+   flutter doctor
+```
+5. Create an emulator: **More Actions → Virtual Device Manager → Create Device**, then pick a phone (e.g. Pixel) and a recent system image.
+6. Start the emulator and run the app from the project folder:
+```bash
+   flutter emulators --launch <emulator_name>
+   flutter run
+```
+
+### Step 3b: Install the packages needed to run the app on a USB-connected device
+
+1. Install a JDK (version 17 or newer) if `java -version` doesn't show one, for example from [adoptium.net](https://adoptium.net).
+2. Download the **Command line tools only** package for Linux from [developer.android.com/studio](https://developer.android.com/studio) and install it:
+```bash
+   mkdir -p ~/Android/Sdk/cmdline-tools
+   cd ~/Android/Sdk/cmdline-tools
+   unzip ~/Downloads/commandlinetools-linux-*_latest.zip
+   mv cmdline-tools latest
+```
+3. Add the Android tools to your `PATH` (in `~/.bashrc`), then reload your shell:
+```bash
+   export ANDROID_HOME="$HOME/Android/Sdk"
+   export PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH"
+```
+4. Install the required SDK packages and accept the licenses:
+```bash
+   sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0"
+   sdkmanager --licenses
+   flutter config --android-sdk ~/Android/Sdk
+   flutter doctor --android-licenses
+```
+5. On your phone, enable **Developer options** (tap **Build number** 7 times in **Settings → About phone**), then turn on **USB debugging**.
+6. Connect the phone via USB, accept the authorization prompt on the screen, and check it is detected:
+```bash
+   adb devices
+```
+7. Run the app from the project folder:
+```bash
+   flutter run
+```
+
+> If `adb devices` shows `no permissions`, your user doesn't have access to the device yet. Installing the `android-tools` package (requires root) adds the necessary udev rules.
+
+### Step 4: Launch
 1. To run the app:
   ```
   flutter run -d emulator-5554 --dart-define=API_URL="https://api.intra.42.fr" --dart-define=CLIENT_ID="" --dart-define=CLIENT_SECRET=""
