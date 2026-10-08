@@ -54,6 +54,7 @@ Other requirements:
 ---
 <h2> Prerequisites </h2>
 
+
 ---
 <h2> Setup Instructions </h2>
 
@@ -75,16 +76,15 @@ Other requirements:
 
 The app will be accessible at:
 - **http://localhost:3001** (when run standalone)
-- **http://localhost:3000** (if served statically by the backend).
 
 ---
 <h2> Technologies Used </h2>
 
 ## Technologies Used
-<div align="left">
-  flutter, Android studio for emulation
-  <img src="screenshots/react.png" width="200px" />
-  <img src="screenshots/redux.png" width="200px" />
+ Framework Flutter to create an app usable on every platform, and Android studio for emulation.
+<div align="center">
+  <img src="Screenshots/FlutterLogo.png" width="200px" />
+  <img src="Screenshots/androidStudioLogo.png" width="200px" />
 </div>
 
 ---
