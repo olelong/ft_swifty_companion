@@ -10,8 +10,8 @@ A solo project. This project is a mobile application that consumes the 42 API to
 <h2> Details </h2>
 
 **Example of the First view (search):**
-<div align="center">
- <img src="screenshots/Home.png" width="400px" />
+<div align="left">
+ <img src="Screenshots/Home.png" height="400px" />
 </div>
 
 
@@ -20,16 +20,16 @@ A solo project. This project is a mobile application that consumes the 42 API to
 - the user's skills, with their level and percentage;
 - the projects the user has taken part in, including failed ones.
 Examples:
-<table align="center">
+<div align="left">
   <tr>
     <td>
-      <img src="screenshots/Projects.png" width="400px" />
+      <img src="Screenshots/Projects.png" height="400px" />
     </td>
     <td>
-      <img src="screenshots/Skills.png" width="400px" />
+      <img src="Screenshots/Skills.png" height="400px" />
     </td>
   </tr>
-</table>
+</div>
 
 Other requirements:
 - **Error handling:** The app must gracefully handle every failure case, such as an unknown login or a network error, and give the user clear feedback.
@@ -40,11 +40,11 @@ Other requirements:
 <table align="center">
   <tr>
     <td>
-      <video src="https://github.com/user-attachments/assets/2ed4865e-358a-47cc-8121-8ef353a000cf" width="400" controls> Your browser does not support videos but you can watch the demo part 1 <a href="https://github.com/user-attachments/assets/2ed4865e-358a-47cc-8121-8ef353a000cf" >here</a>
+      <video src="https://github.com/user-attachments/assets/2ed4865e-358a-47cc-8121-8ef353a000cf" controls> Your browser does not support videos but you can watch the demo part 1 <a href="https://github.com/user-attachments/assets/2ed4865e-358a-47cc-8121-8ef353a000cf" >here</a>
       </video>
     </td>
     <td>
-      <video src="https://github.com/user-attachments/assets/3134a972-1e88-47ce-9f50-047ff1204c69" width="400" controls>
+      <video src="https://github.com/user-attachments/assets/3134a972-1e88-47ce-9f50-047ff1204c69" controls>
         Your browser does not support videos but you can watch the demo part 2 <a href="https://github.com/user-attachments/assets/3134a972-1e88-47ce-9f50-047ff1204c69" >here</a>
       </video>
     </td>
