@@ -53,29 +53,45 @@ Other requirements:
 
 ---
 <h2> Prerequisites </h2>
-
+Flutter, Android studio si besoin pour émuler.
 
 ---
 <h2> Setup Instructions </h2>
 
-### Step 1: Clone and Set Up the repository
+### Step 1: Clone the repository
 1. Clone this repository:
     ```bash
-   git clone git@github.com:olelong/red-tetris-frontend.git
-   cd red-tetris-frontend
+   git clone git@github.com:olelong/ft_swifty_companion.git
+   cd ft_swifty_companion
    ```
-2. Install dependencies:
-   ```bash
-   npm install
+### Step 2: Install Flutter (if not already installed)
+1. Download flutter zip:
+   https://docs.flutter.dev/get-started/install/linux/android
+2. Create a folder dedicated (this step line is only for 42 users):
+   Create a folder dev in sgoinfre or goinfre.
    ```
-3. Start the frontend server:
-   ```bash
-   npm run start
-   Y // Would you like to run the app on another port instead? › (Y/n)
+      mkdir dev
    ```
+5. Extract the zip file:
+   ```
+   tar -xf ~/Downloads/flutter_linux_3.35.2-stable.tar.xz -C ~/goinfre/dev/
+   ```
+7. Add to PATH env:
+  ```
+   echo 'export PATH="$HOME/goinfre/dev/flutter/bin:$PATH"' >> ~/.zshenv
+  ```
+(  Same command line for bash instead of zshrc but at the end: >>  ~/.bash_profile )
+8. Relaunch the terminal
 
-The app will be accessible at:
-- **http://localhost:3001** (when run standalone)
+### Step 3: Launch
+1. To run the app:
+  ```
+  flutter run -d emulator-5554 --dart-define=API_URL="https://api.intra.42.fr" --dart-define=CLIENT_ID="" --dart-define=CLIENT_SECRET=""
+  ```
+3. To build the app:
+```
+  flutter build apk --release --dart-define=API_URL="https://api.intra.42.fr" --dart-define=CLIENT_ID="" --dart-define=CLIENT_SECRET=""
+```
 
 ---
 <h2> Technologies Used </h2>
@@ -90,7 +106,7 @@ The app will be accessible at:
 ---
 <h2> License </h2>
 
-This project is licensed under the MIT License - see the license file for details.
+This project is licensed under the MIT License - see the license file [LICENSE](LICENSE) for details.
 
 ---
 
